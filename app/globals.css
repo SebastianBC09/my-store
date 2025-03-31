@@ -1,26 +1,186 @@
 @import 'tailwindcss';
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  /* Primary Brand Colors */
+  --color-primary: #6366f1; /* indigo-500 - Main brand color */
+  --color-primary-dark: #4f46e5; /* indigo-600 - Used for hover states */
+  --color-primary-light: #818cf8; /* indigo-400 - Used for accents */
+
+  /* Surface Colors */
+  --color-surface: #ffffff; /* white - Main background color (light mode) */
+  --color-surface-dark: #111827; /* gray-900 - Main background color (dark mode) */
+
+  /* Text Colors */
+  --color-text: #1f2937; /* gray-800 - Primary text color (light mode) */
+  --color-text-light: #f3f4f6; /* gray-100 - Primary text color (dark mode) */
+  --color-text-muted: #4b5563; /* gray-600 - Secondary text color (light mode) */
+  --color-text-muted-light: #d1d5db; /* gray-300 - Secondary text color (dark mode) */
+
+  /* Border Colors */
+  --color-border: #e5e7eb; /* gray-200 - Standard border color (light mode) */
+  --color-border-dark: #374151; /* gray-700 - Standard border color (dark mode) */
+
+  /* Button Colors */
+  --color-button: #e5e7eb; /* gray-200 - Button background (light mode) */
+  --color-button-hover: #d1d5db; /* gray-300 - Button hover state (light mode) */
+  --color-button-dark: #1f2937; /* gray-800 - Button background (dark mode) */
+  --color-button-dark-hover: #374151; /* gray-700 - Button hover state (dark mode) */
+
+  /* Accent Colors */
+  --color-accent: #eab308; /* yellow-300 - Accent color for dark mode toggle */
+  --color-badge: #4f46e5; /* indigo-600 - Badge background */
+  --color-badge-text: #ffffff; /* white - Badge text */
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
+  /* Light Mode Variables */
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    /* Header */
+    --color-header-bg: var(--color-surface);
+    --color-header-text: var(--color-text);
+    --color-header-border: var(--color-border);
+
+    /* Logo */
+    --color-logo-bg: var(--color-primary);
+    --color-logo-hover: var(--color-primary-dark);
+    --color-logo-icon: var(--color-surface);
+
+    /* Navigation */
+    --color-nav-border-default: transparent;
+    --color-nav-border-hover: var(--color-primary);
+    --color-nav-text: var(--color-text-muted);
+    --color-nav-text-hover: var(--color-text);
+
+    /* Buttons */
+    --color-button-bg: var(--color-button);
+    --color-button-hover: var(--color-button-hover);
+    --color-button-icon: var(--color-text-muted);
+
+    /* Mobile Menu */
+    --color-mobile-menu-border: var(--color-border);
+    --color-mobile-menu-item: var(--color-text-muted);
+    --color-mobile-menu-item-hover-bg: #f3f4f6; /* gray-100 - Hover background */
+    --color-mobile-menu-item-hover-text: var(--color-text);
+
+    /* Footer */
+    --color-footer-bg: #f3f4f6; /* gray-100 */
+    --color-footer-text: #374151; /* gray-700 */
+    --color-footer-logo-bg: #6366f1; /* indigo-500 */
+    --color-footer-logo-hover: #4f46e5; /* indigo-600 */
+    --color-footer-logo-icon: #ffffff; /* white */
+    --color-footer-brand-name: #1f2937; /* gray-800 - from text-lg font-bold */
+    --color-footer-description: #4b5563; /* gray-600 */
+    --color-footer-social-icon: #4b5563; /* gray-600 */
+    --color-footer-social-icon-hover: #111827; /* gray-900 */
+    --color-footer-heading: #1f2937; /* gray-800 */
+    --color-footer-link: #4b5563; /* gray-600 */
+    --color-footer-link-hover: #111827; /* gray-900 */
+    --color-footer-input-bg: #ffffff; /* white */
+    --color-footer-input-border: #d1d5db; /* gray-300 */
+    --color-footer-input-text: #1f2937; /* gray-800 */
+    --color-footer-input-placeholder: #6b7280; /* gray-500 */
+    --color-footer-button-bg: #4f46e5; /* indigo-600 */
+    --color-footer-button-hover: #4338ca; /* indigo-700 */
+    --color-footer-button-text: #ffffff; /* white */
+    --color-footer-border: #e5e7eb; /* gray-200 */
+    --color-footer-copyright: #6b7280; /* gray-500 */
+  }
+
+  /* Dark Mode Variables */
+  [data-theme='dark'] {
+    /* Header */
+    --color-header-bg: var(--color-surface-dark);
+    --color-header-text: var(--color-text-light);
+    --color-header-border: transparent;
+
+    /* Logo */
+    --color-logo-bg: var(--color-primary-dark);
+    --color-logo-hover: var(--color-primary);
+    --color-logo-icon: var(--color-surface);
+
+    /* Navigation */
+    --color-nav-border-default: transparent;
+    --color-nav-border-hover: var(--color-primary);
+    --color-nav-text: var(--color-text-muted-light);
+    --color-nav-text-hover: var(--color-surface);
+
+    /* Buttons */
+    --color-button-bg: var(--color-button-dark);
+    --color-button-hover: var(--color-button-dark-hover);
+    --color-button-icon: var(--color-text-light);
+    --color-toggle-icon: var(--color-accent);
+
+    /* Mobile Menu */
+    --color-mobile-menu-border: var(--color-border-dark);
+    --color-mobile-menu-item: var(--color-text-muted-light);
+    --color-mobile-menu-item-hover-bg: var(--color-button-dark);
+    --color-mobile-menu-item-hover-text: var(--color-surface);
+
+    /* Footer */
+    --color-footer-bg: #111827; /* gray-900 */
+    --color-footer-text: #d1d5db; /* gray-300 */
+    --color-footer-logo-bg: #4f46e5; /* indigo-600 */
+    --color-footer-logo-hover: #6366f1; /* indigo-500 */
+    --color-footer-logo-icon: #ffffff; /* white */
+    --color-footer-brand-name: #f3f4f6; /* gray-100 - inferred from context */
+    --color-footer-description: #9ca3af; /* gray-400 */
+    --color-footer-social-icon: #9ca3af; /* gray-400 */
+    --color-footer-social-icon-hover: #ffffff; /* white */
+    --color-footer-heading: #e5e7eb; /* gray-200 */
+    --color-footer-link: #9ca3af; /* gray-400 */
+    --color-footer-link-hover: #ffffff; /* white */
+    --color-footer-input-bg: #1f2937; /* gray-800 */
+    --color-footer-input-border: #374151; /* gray-700 */
+    --color-footer-input-text: #ffffff; /* white */
+    --color-footer-input-placeholder: #9ca3af; /* gray-400 */
+    --color-footer-button-bg: #4f46e5; /* indigo-600 */
+    --color-footer-button-hover: #4338ca; /* indigo-700 */
+    --color-footer-button-text: #ffffff; /* white */
+    --color-footer-border: #1f2937; /* gray-800 */
+    --color-footer-copyright: #9ca3af; /* gray-400 */
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  0% {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInRight {
+  0% {
+    transform: translateX(10px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Helper classes for animations */
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.slide-in {
+  animation: slideIn 0.5s ease-in-out;
+}
+
+.slide-in-right {
+  animation: slideInRight 0.5s ease-in-out;
 }
