@@ -1,146 +1,232 @@
 @import 'tailwindcss';
 
+/*
+ * Theme Definition - Core Design System
+ * These variables define the foundation of our design system
+ */
 @theme {
-  /* Primary Brand Colors */
-  --color-primary: #6366f1; /* indigo-500 - Main brand color */
-  --color-primary-dark: #4f46e5; /* indigo-600 - Used for hover states */
-  --color-primary-light: #818cf8; /* indigo-400 - Used for accents */
+  /* Color Palette - Core Colors */
+  --color-primary: #6366f1; /* Main brand color - indigo-500 */
+  --color-primary-dark: #4f46e5; /* Darker shade - indigo-600 */
+  --color-primary-light: #818cf8; /* Lighter shade - indigo-400 */
 
-  /* Surface Colors */
-  --color-surface: #ffffff; /* white - Main background color (light mode) */
-  --color-surface-dark: #111827; /* gray-900 - Main background color (dark mode) */
+  --color-accent: #eab308; /* Yellow accent color */
 
-  /* Text Colors */
-  --color-text: #1f2937; /* gray-800 - Primary text color (light mode) */
-  --color-text-light: #f3f4f6; /* gray-100 - Primary text color (dark mode) */
-  --color-text-muted: #4b5563; /* gray-600 - Secondary text color (light mode) */
-  --color-text-muted-light: #d1d5db; /* gray-300 - Secondary text color (dark mode) */
+  /* Neutral Colors */
+  --color-white: #ffffff;
+  --color-black: #000000;
 
-  /* Border Colors */
-  --color-border: #e5e7eb; /* gray-200 - Standard border color (light mode) */
-  --color-border-dark: #374151; /* gray-700 - Standard border color (dark mode) */
+  /* Gray Scale */
+  --color-gray-50: #f9fafb;
+  --color-gray-100: #f3f4f6;
+  --color-gray-200: #e5e7eb;
+  --color-gray-300: #d1d5db;
+  --color-gray-400: #9ca3af;
+  --color-gray-500: #6b7280;
+  --color-gray-600: #4b5563;
+  --color-gray-700: #374151;
+  --color-gray-800: #1f2937;
+  --color-gray-900: #111827;
 
-  /* Button Colors */
-  --color-button: #e5e7eb; /* gray-200 - Button background (light mode) */
-  --color-button-hover: #d1d5db; /* gray-300 - Button hover state (light mode) */
-  --color-button-dark: #1f2937; /* gray-800 - Button background (dark mode) */
-  --color-button-dark-hover: #374151; /* gray-700 - Button hover state (dark mode) */
-
-  /* Accent Colors */
-  --color-accent: #eab308; /* yellow-300 - Accent color for dark mode toggle */
-  --color-badge: #4f46e5; /* indigo-600 - Badge background */
-  --color-badge-text: #ffffff; /* white - Badge text */
+  /* Semantic Colors */
+  --color-success: #10b981; /* Emerald-500 */
+  --color-warning: #f59e0b; /* Amber-500 */
+  --color-error: #ef4444; /* Red-500 */
+  --color-info: #3b82f6; /* Blue-500 */
 }
 
 @layer base {
-  /* Light Mode Variables */
+  /*
+   * Light Mode - Global Semantic Variables
+   * These variables map our color palette to functional uses
+   */
   :root {
-    /* Header */
-    --color-header-bg: var(--color-surface);
-    --color-header-text: var(--color-text);
-    --color-header-border: var(--color-border);
+    /* Background Colors */
+    --color-bg-primary: var(--color-white);
+    --color-bg-secondary: var(--color-gray-100);
+    --color-bg-tertiary: var(--color-gray-50);
+    --color-bg-accent: var(--color-primary-light);
 
-    /* Logo */
-    --color-logo-bg: var(--color-primary);
-    --color-logo-hover: var(--color-primary-dark);
-    --color-logo-icon: var(--color-surface);
+    /* Text Colors */
+    --color-text-primary: var(--color-gray-900);
+    --color-text-secondary: var(--color-gray-600);
+    --color-text-tertiary: var(--color-gray-500);
+    --color-text-accent: var(--color-primary);
+    --color-text-on-primary: var(--color-white);
+    --color-text-on-accent: var(--color-white);
+    --color-text-disabled: var(--color-gray-400);
 
-    /* Navigation */
-    --color-nav-border-default: transparent;
-    --color-nav-border-hover: var(--color-primary);
-    --color-nav-text: var(--color-text-muted);
-    --color-nav-text-hover: var(--color-text);
+    /* Border Colors */
+    --color-border-primary: var(--color-gray-200);
+    --color-border-secondary: var(--color-gray-300);
+    --color-border-focus: var(--color-primary);
 
-    /* Buttons */
-    --color-button-bg: var(--color-button);
-    --color-button-hover: var(--color-button-hover);
-    --color-button-icon: var(--color-text-muted);
+    /* Button Colors */
+    --color-button-primary-bg: var(--color-primary);
+    --color-button-primary-hover: var(--color-primary-dark);
+    --color-button-primary-text: var(--color-white);
 
-    /* Mobile Menu */
-    --color-mobile-menu-border: var(--color-border);
-    --color-mobile-menu-item: var(--color-text-muted);
-    --color-mobile-menu-item-hover-bg: #f3f4f6; /* gray-100 - Hover background */
-    --color-mobile-menu-item-hover-text: var(--color-text);
+    --color-button-secondary-bg: var(--color-white);
+    --color-button-secondary-hover: var(--color-gray-100);
+    --color-button-secondary-text: var(--color-primary);
+    --color-button-secondary-border: var(--color-primary);
 
-    /* Footer */
-    --color-footer-bg: #f3f4f6; /* gray-100 */
-    --color-footer-text: #374151; /* gray-700 */
-    --color-footer-logo-bg: #6366f1; /* indigo-500 */
-    --color-footer-logo-hover: #4f46e5; /* indigo-600 */
-    --color-footer-logo-icon: #ffffff; /* white */
-    --color-footer-brand-name: #1f2937; /* gray-800 - from text-lg font-bold */
-    --color-footer-description: #4b5563; /* gray-600 */
-    --color-footer-social-icon: #4b5563; /* gray-600 */
-    --color-footer-social-icon-hover: #111827; /* gray-900 */
-    --color-footer-heading: #1f2937; /* gray-800 */
-    --color-footer-link: #4b5563; /* gray-600 */
-    --color-footer-link-hover: #111827; /* gray-900 */
-    --color-footer-input-bg: #ffffff; /* white */
-    --color-footer-input-border: #d1d5db; /* gray-300 */
-    --color-footer-input-text: #1f2937; /* gray-800 */
-    --color-footer-input-placeholder: #6b7280; /* gray-500 */
-    --color-footer-button-bg: #4f46e5; /* indigo-600 */
-    --color-footer-button-hover: #4338ca; /* indigo-700 */
-    --color-footer-button-text: #ffffff; /* white */
-    --color-footer-border: #e5e7eb; /* gray-200 */
-    --color-footer-copyright: #6b7280; /* gray-500 */
+    --color-button-tertiary-bg: var(--color-gray-200);
+    --color-button-tertiary-hover: var(--color-gray-300);
+    --color-button-tertiary-text: var(--color-gray-800);
+
+    /* Input Colors */
+    --color-input-bg: var(--color-white);
+    --color-input-border: var(--color-gray-300);
+    --color-input-text: var(--color-gray-900);
+    --color-input-placeholder: var(--color-gray-500);
+    --color-input-focus-border: var(--color-primary);
+
+    /* Status Colors */
+    --color-status-success-bg: #d1fae5; /* Emerald-100 */
+    --color-status-success-text: #059669; /* Emerald-600 */
+    --color-status-warning-bg: #fef3c7; /* Amber-100 */
+    --color-status-warning-text: #d97706; /* Amber-600 */
+    --color-status-error-bg: #fee2e2; /* Red-100 */
+    --color-status-error-text: #dc2626; /* Red-600 */
+    --color-status-info-bg: #dbeafe; /* Blue-100 */
+    --color-status-info-text: #2563eb; /* Blue-600 */
+
+    /* Card Colors */
+    --color-card-bg: var(--color-white);
+    --color-card-border: var(--color-gray-200);
+    --color-card-shadow: rgba(0, 0, 0, 0.1);
+
+    /* Badge Colors */
+    --color-badge-bg: var(--color-primary);
+    --color-badge-text: var(--color-white);
+
+    /* Header Component */
+    --color-header-bg: var(--color-bg-primary);
+    --color-header-text: var(--color-text-primary);
+    --color-header-border: var(--color-border-primary);
+
+    /* Navigation Component */
+    --color-nav-text: var(--color-text-secondary);
+    --color-nav-text-hover: var(--color-text-primary);
+    --color-nav-text-active: var(--color-primary);
+    --color-nav-indicator: var(--color-primary);
+
+    /* Footer Component */
+    --color-footer-bg: var(--color-gray-100);
+    --color-footer-text: var(--color-gray-600);
+    --color-footer-heading: var(--color-gray-800);
+    --color-footer-link: var(--color-gray-600);
+    --color-footer-link-hover: var(--color-gray-900);
+    --color-footer-border: var(--color-gray-200);
+
+    /* Product Grid/Card */
+    --color-product-title: var(--color-text-primary);
+    --color-product-price: var(--color-primary);
+    --color-product-discount: var(--color-gray-500);
+    --color-product-rating: var(--color-accent);
+
+    /* Loading State */
+    --color-skeleton-base: var(--color-gray-200);
+    --color-skeleton-highlight: var(--color-gray-300);
   }
 
-  /* Dark Mode Variables */
-  [data-theme='dark'] {
-    /* Header */
-    --color-header-bg: var(--color-surface-dark);
-    --color-header-text: var(--color-text-light);
-    --color-header-border: transparent;
+  /*
+   * Dark Mode - Global Semantic Variables
+   */
+  .dark {
+    /* Background Colors */
+    --color-bg-primary: var(--color-gray-900);
+    --color-bg-secondary: var(--color-gray-800);
+    --color-bg-tertiary: var(--color-gray-700);
+    --color-bg-accent: var(--color-primary-dark);
 
-    /* Logo */
-    --color-logo-bg: var(--color-primary-dark);
-    --color-logo-hover: var(--color-primary);
-    --color-logo-icon: var(--color-surface);
+    /* Text Colors */
+    --color-text-primary: var(--color-gray-100);
+    --color-text-secondary: var(--color-gray-300);
+    --color-text-tertiary: var(--color-gray-400);
+    --color-text-accent: var(--color-primary-light);
+    --color-text-on-primary: var(--color-white);
+    --color-text-on-accent: var(--color-white);
+    --color-text-disabled: var(--color-gray-600);
 
-    /* Navigation */
-    --color-nav-border-default: transparent;
-    --color-nav-border-hover: var(--color-primary);
-    --color-nav-text: var(--color-text-muted-light);
-    --color-nav-text-hover: var(--color-surface);
+    /* Border Colors */
+    --color-border-primary: var(--color-gray-700);
+    --color-border-secondary: var(--color-gray-600);
+    --color-border-focus: var(--color-primary-light);
 
-    /* Buttons */
-    --color-button-bg: var(--color-button-dark);
-    --color-button-hover: var(--color-button-dark-hover);
-    --color-button-icon: var(--color-text-light);
-    --color-toggle-icon: var(--color-accent);
+    /* Button Colors */
+    --color-button-primary-bg: var(--color-primary);
+    --color-button-primary-hover: var(--color-primary-light);
+    --color-button-primary-text: var(--color-white);
 
-    /* Mobile Menu */
-    --color-mobile-menu-border: var(--color-border-dark);
-    --color-mobile-menu-item: var(--color-text-muted-light);
-    --color-mobile-menu-item-hover-bg: var(--color-button-dark);
-    --color-mobile-menu-item-hover-text: var(--color-surface);
+    --color-button-secondary-bg: transparent;
+    --color-button-secondary-hover: rgba(255, 255, 255, 0.1);
+    --color-button-secondary-text: var(--color-primary-light);
+    --color-button-secondary-border: var(--color-primary-light);
 
-    /* Footer */
-    --color-footer-bg: #111827; /* gray-900 */
-    --color-footer-text: #d1d5db; /* gray-300 */
-    --color-footer-logo-bg: #4f46e5; /* indigo-600 */
-    --color-footer-logo-hover: #6366f1; /* indigo-500 */
-    --color-footer-logo-icon: #ffffff; /* white */
-    --color-footer-brand-name: #f3f4f6; /* gray-100 - inferred from context */
-    --color-footer-description: #9ca3af; /* gray-400 */
-    --color-footer-social-icon: #9ca3af; /* gray-400 */
-    --color-footer-social-icon-hover: #ffffff; /* white */
-    --color-footer-heading: #e5e7eb; /* gray-200 */
-    --color-footer-link: #9ca3af; /* gray-400 */
-    --color-footer-link-hover: #ffffff; /* white */
-    --color-footer-input-bg: #1f2937; /* gray-800 */
-    --color-footer-input-border: #374151; /* gray-700 */
-    --color-footer-input-text: #ffffff; /* white */
-    --color-footer-input-placeholder: #9ca3af; /* gray-400 */
-    --color-footer-button-bg: #4f46e5; /* indigo-600 */
-    --color-footer-button-hover: #4338ca; /* indigo-700 */
-    --color-footer-button-text: #ffffff; /* white */
-    --color-footer-border: #1f2937; /* gray-800 */
-    --color-footer-copyright: #9ca3af; /* gray-400 */
+    --color-button-tertiary-bg: var(--color-gray-700);
+    --color-button-tertiary-hover: var(--color-gray-600);
+    --color-button-tertiary-text: var(--color-gray-200);
+
+    /* Input Colors */
+    --color-input-bg: var(--color-gray-800);
+    --color-input-border: var(--color-gray-700);
+    --color-input-text: var(--color-gray-100);
+    --color-input-placeholder: var(--color-gray-500);
+    --color-input-focus-border: var(--color-primary-light);
+
+    /* Status Colors */
+    --color-status-success-bg: rgba(16, 185, 129, 0.2);
+    --color-status-success-text: #34d399; /* Emerald-400 */
+    --color-status-warning-bg: rgba(245, 158, 11, 0.2);
+    --color-status-warning-text: #fbbf24; /* Amber-400 */
+    --color-status-error-bg: rgba(239, 68, 68, 0.2);
+    --color-status-error-text: #f87171; /* Red-400 */
+    --color-status-info-bg: rgba(59, 130, 246, 0.2);
+    --color-status-info-text: #60a5fa; /* Blue-400 */
+
+    /* Card Colors */
+    --color-card-bg: var(--color-gray-800);
+    --color-card-border: var(--color-gray-700);
+    --color-card-shadow: rgba(0, 0, 0, 0.3);
+
+    /* Badge Colors */
+    --color-badge-bg: var(--color-primary-dark);
+    --color-badge-text: var(--color-white);
+
+    /* Header Component */
+    --color-header-bg: var(--color-bg-primary);
+    --color-header-text: var(--color-text-primary);
+    --color-header-border: var(--color-border-primary);
+
+    /* Navigation Component */
+    --color-nav-text: var(--color-text-secondary);
+    --color-nav-text-hover: var(--color-text-primary);
+    --color-nav-text-active: var(--color-primary-light);
+    --color-nav-indicator: var(--color-primary-light);
+
+    /* Footer Component */
+    --color-footer-bg: var(--color-gray-900);
+    --color-footer-text: var(--color-gray-400);
+    --color-footer-heading: var(--color-gray-200);
+    --color-footer-link: var(--color-gray-400);
+    --color-footer-link-hover: var(--color-white);
+    --color-footer-border: var(--color-gray-800);
+
+    /* Product Grid/Card */
+    --color-product-title: var(--color-text-primary);
+    --color-product-price: var(--color-primary-light);
+    --color-product-discount: var(--color-gray-400);
+    --color-product-rating: var(--color-accent);
+
+    /* Loading State */
+    --color-skeleton-base: var(--color-gray-700);
+    --color-skeleton-highlight: var(--color-gray-600);
   }
 }
 
+/* Animation Keyframes */
 @keyframes fadeIn {
   0% {
     opacity: 0;
@@ -172,6 +258,15 @@
   }
 }
 
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
 /* Helper classes for animations */
 .fade-in {
   animation: fadeIn 0.5s ease-in-out;
@@ -183,4 +278,82 @@
 
 .slide-in-right {
   animation: slideInRight 0.5s ease-in-out;
+}
+
+.pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Z-index scale */
+:root {
+  --z-negative: -1;
+  --z-elevate: 1;
+  --z-dropdown: 10;
+  --z-sticky: 100;
+  --z-drawer: 200;
+  --z-modal: 300;
+  --z-popover: 400;
+  --z-toast: 500;
+  --z-tooltip: 600;
+}
+
+/* Spacing scale */
+:root {
+  --spacing-xs: 0.25rem;  /* 4px */
+  --spacing-sm: 0.5rem;   /* 8px */
+  --spacing-md: 1rem;     /* 16px */
+  --spacing-lg: 1.5rem;   /* 24px */
+  --spacing-xl: 2rem;     /* 32px */
+  --spacing-2xl: 3rem;    /* 48px */
+  --spacing-3xl: 4rem;    /* 64px */
+}
+
+/* Typography scale */
+:root {
+  --font-size-xs: 0.75rem;     /* 12px */
+  --font-size-sm: 0.875rem;    /* 14px */
+  --font-size-md: 1rem;        /* 16px */
+  --font-size-lg: 1.125rem;    /* 18px */
+  --font-size-xl: 1.25rem;     /* 20px */
+  --font-size-2xl: 1.5rem;     /* 24px */
+  --font-size-3xl: 1.875rem;   /* 30px */
+  --font-size-4xl: 2.25rem;    /* 36px */
+
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+}
+
+/* Border radius */
+:root {
+  --radius-sm: 0.125rem;  /* 2px */
+  --radius-md: 0.25rem;   /* 4px */
+  --radius-lg: 0.5rem;    /* 8px */
+  --radius-xl: 0.75rem;   /* 12px */
+  --radius-2xl: 1rem;     /* 16px */
+  --radius-full: 9999px;
+}
+
+/* Shadow values */
+:root {
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+  /* Dark mode shadow adjustments */
+  .dark {
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.6), 0 10px 10px -5px rgba(0, 0, 0, 0.4);
+  }
+}
+
+/* Transition timing */
+:root {
+  --transition-fast: 0.15s ease;
+  --transition-base: 0.3s ease;
+  --transition-slow: 0.5s ease;
 }
