@@ -1,74 +1,30 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
+import { ErrorState } from '@/components/UI/ErrorState';
+import { LoadingState } from '@/components/UI/LoadingState';
 import ProductsGrid from '@/components/products/ProductsGrid';
 import ProductCard from '@/components/products/ProductCard';
 import { fetchProducts } from '@/lib/api';
 import { Product } from '@/types/Product';
 
 export default function Page() {
-  const { data, isLoading, isError } = useQuery<Product[]>({
+  const { data, isLoading, error } = useQuery<Product[]>({
     queryKey: ['products'],
     queryFn: fetchProducts,
   });
 
   if (isLoading) {
-    return (
-      <div className="w-full">
-        <div className="mb-6 flex items-center justify-between">
-          <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100">
-            Todos los productos
-          </h2>
-
-          <div className="flex items-center gap-2">
-            <div className="h-10 w-32 animate-pulse rounded-md bg-gray-200 dark:bg-gray-700"></div>
-            <div className="h-10 w-32 animate-pulse rounded-md bg-gray-200 dark:bg-gray-700"></div>
-          </div>
-        </div>
-
-        <ProductsGrid>
-          {Array.from({ length: 8 }).map((_, index) => (
-            <div
-              key={index}
-              className="h-80 animate-pulse rounded-lg bg-gray-200 dark:bg-gray-700"
-            ></div>
-          ))}
-        </ProductsGrid>
-      </div>
-    );
+    return <LoadingState message="Loading products..." />;
   }
 
-  if (isError || !data) {
+  if (error || !data) {
     return (
-      <div className="flex w-full flex-col items-center justify-center rounded-lg bg-red-50 py-12 dark:bg-red-900/20">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="mb-4 h-12 w-12 text-red-500 dark:text-red-400"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-          />
-        </svg>
-        <h3 className="mb-2 text-xl font-medium text-gray-900 dark:text-gray-100">
-          Error al cargar los productos
-        </h3>
-        <p className="text-center text-gray-600 dark:text-gray-300">
-          No pudimos cargar los productos en este momento. Por favor intenta
-          nuevamente más tarde.
-        </p>
-        <button
-          onClick={() => window.location.reload()}
-          className="mt-4 rounded-md bg-indigo-600 px-4 py-2 text-white hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-none dark:focus:ring-offset-gray-800"
-        >
-          Reintentar
-        </button>
-      </div>
+      <ErrorState
+        title="Failed to load products"
+        message="We couldn't load the products. Please try again later."
+        onRetry={() => refetch()}
+      />
     );
   }
 
@@ -76,26 +32,15 @@ export default function Page() {
     <div className="w-full">
       <div className="mb-6 flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
         <div>
-          <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100">
+          <h2 className="text-xl font-bold text-[var(--color-text-primary)]">
             Todos los productos
           </h2>
-          <p className="text-sm text-gray-500 dark:text-gray-400">
+          <p className="text-sm text-[var(--color-text-secondary)]">
             {data.length} producto{data.length !== 1 ? 's' : ''} disponible
             {data.length !== 1 ? 's' : ''}
           </p>
         </div>
-
         <div className="flex items-center gap-2">
-          <select
-            className="rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-700 shadow-sm focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:outline-none dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200"
-            defaultValue="featured"
-          >
-            <option value="featured">Destacados</option>
-            <option value="newest">Más nuevos</option>
-            <option value="price-low">Precio: Menor a Mayor</option>
-            <option value="price-high">Precio: Mayor a Menor</option>
-          </select>
-
           <select
             className="rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-700 shadow-sm focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:outline-none dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200"
             defaultValue="all"
