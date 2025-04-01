@@ -12,7 +12,8 @@ interface ProductCardProps {
 const ProductCard: FC<ProductCardProps> = ({ product }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
+
+  const { id, title, price, description, image, rating, category } = product;
 
   const handleLoad = () => {
     setIsLoading(false);
@@ -24,64 +25,76 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
   };
 
   return (
-    <div
-      className="group relative overflow-hidden rounded-lg border border-gray-200 bg-white p-4 shadow-sm transition-all duration-300 dark:border-gray-700 dark:bg-gray-800 dark:shadow-gray-900/10"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      style={{
-        transform: isHovered ? 'translateY(-4px)' : 'translateY(0)',
-        boxShadow: isHovered
-          ? '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)'
-          : '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
-      }}
-    >
-      <div className="relative mb-3 flex h-48 items-center justify-center overflow-hidden rounded bg-gray-100 p-4 dark:bg-gray-700">
+    <div className="group relative overflow-hidden rounded-lg border border-[var(--color-card-border)] bg-[var(--color-card-bg)] p-4 transition-all duration-300 ease-in-out hover:-translate-y-1 hover:shadow-xl">
+      <div
+        className="absolute top-2 right-2 z-10 rounded-full bg-[var(--color-product-rating)] px-2 py-1 text-xs font-medium opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+        aria-label={`Rating: ${rating.rate.toFixed(1)}`}
+      >
+        ★ {rating.rate.toFixed(1)}
+      </div>
+      <div className="relative mb-3 flex h-48 items-center justify-center overflow-hidden rounded bg-[var(--color-card-bg)] p-4 transition-transform duration-300 group-hover:scale-105">
         {isLoading && (
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="h-8 w-8 animate-spin rounded-full border-4 border-gray-200 border-t-blue-500"></div>
+            <div className="h-8 w-8 animate-spin rounded-full border-4 border-[var(--color-card-border)] border-t-[var(--color-product-price)]"></div>
           </div>
         )}
-        <ProductImage
-          src={product.image}
-          alt={product.title}
-          error={error}
-          isLoading={isLoading}
-          handleLoad={handleLoad}
-          handleError={handleError}
-        />
-      </div>
-
-      <div>
-        <h3 className="mb-1 line-clamp-1 text-lg font-medium text-gray-800 dark:text-gray-100">
-          {product.title}
-        </h3>
-
-        <div className="mb-2 line-clamp-2 h-10 text-sm text-gray-500 dark:text-gray-400">
-          {product.description && product.description.substring(0, 60)}
-          {product.description && product.description.length > 60 ? '...' : ''}
+        <div
+          className={`relative h-full w-full transition-opacity duration-300 ${
+            isLoading ? 'opacity-0' : 'opacity-100'
+          }`}
+        >
+          <ProductImage
+            src={image}
+            alt={title}
+            error={error}
+            isLoading={isLoading}
+            handleLoad={handleLoad}
+            handleError={handleError}
+          />
         </div>
-
-        <div className="flex items-baseline">
-          <p className="text-lg font-bold text-gray-900 dark:text-white">
-            ${product.price.toFixed(2)}
+      </div>
+      <div className="mb-2">
+        <span className="inline-block rounded-full bg-[var(--color-gray-200)] px-2 py-1 text-xs font-medium text-[var(--color-text-primary)] capitalize dark:bg-[var(--color-primary-dark)] dark:text-[var(--color-text-on-primary)]">
+          {category}
+        </span>
+      </div>
+      <div className="space-y-2">
+        <h3 className="line-clamp-1 text-lg font-medium text-[var(--color-product-title)] transition-colors duration-300 group-hover:text-[var(--color-product-price)]">
+          {title}
+        </h3>
+        <div className="line-clamp-2 h-10 text-sm text-[var(--color-text-secondary)]">
+          {description && description.substring(0, 60)}
+          {description && description.length > 60 ? '...' : ''}
+        </div>
+        <div className="flex items-center justify-between">
+          <p className="text-lg font-bold text-[var(--color-product-price)]">
+            ${price.toFixed(2)}
           </p>
+          <div className="flex items-center text-xs text-[var(--color-text-secondary)]">
+            <span className="mr-1 text-[var(--color-product-rating)]">★</span>
+            <span>{rating.count} reviews</span>
+          </div>
         </div>
 
         <div className="mt-3 flex gap-2">
           <Link
-            href={`/products/${product.id}`}
-            className="flex flex-1 items-center justify-center rounded bg-indigo-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-none dark:ring-offset-gray-800"
+            href={`/products/${id}`}
+            className="flex flex-1 items-center justify-center rounded bg-[var(--color-product-price)] px-4 py-2 text-sm font-medium text-[var(--color-text-on-primary)] transition-all duration-300 hover:bg-[var(--color-primary-dark)] hover:shadow-md focus:ring-2 focus:ring-[var(--color-primary-dark)] focus:ring-offset-2 focus:outline-none"
+            aria-label={`Ver detalles de ${title}`}
           >
-            Ver Detalle
+            <span className="mr-1 opacity-0 transition-all duration-300 group-hover:opacity-100">
+              👁️{' '}
+            </span>
+            View Details
           </Link>
 
           <button
-            aria-label="Add to cart"
-            className="flex items-center justify-center rounded border border-gray-300 bg-white p-2 text-gray-700 transition-colors hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
+            aria-label={`Agregar ${title} al carrito`}
+            className="flex items-center justify-center rounded border border-[var(--color-card-border)] bg-[var(--color-card-bg)] p-2 text-[var(--color-text-secondary)] transition-all duration-300 hover:bg-[var(--color-gray-100)] hover:text-[var(--color-product-price)]"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
+              className="h-5 w-5 transition-transform duration-300 group-hover:scale-110"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
