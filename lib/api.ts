@@ -3,14 +3,10 @@ import { ProductCategories, ProductCategory } from '@/types/Categories';
 
 export const fetchProducts = async (params?: {
   limit?: number;
-  sort?: 'asc' | 'desc';
 }): Promise<Product[]> => {
   let url = 'https://fakestoreapi.com/products';
-  if (params) {
-    const query = new URLSearchParams();
-    if (params.limit) query.append('limit', params.limit.toString());
-    if (params.sort) query.append('sort', params.sort);
-    url += `?${query.toString()}`;
+  if (params && params.limit) {
+    url += `?${params.limit}`;
   }
   const response = await fetch(url);
   if (!response.ok) {
@@ -37,11 +33,11 @@ export const fetchCategories = async (): Promise<ProductCategories> => {
 
 export const fetchProductsByCategory = async (
   category: ProductCategory,
-  params?: { sort?: 'asc' | 'desc' }
+  params?: { limit?: number }
 ): Promise<Product[]> => {
   let url = `https://fakestoreapi.com/products/category/${encodeURIComponent(category)}`;
-  if (params && params.sort) {
-    url += `?sort=${params.sort}`;
+  if (params && params.limit) {
+    url += `?${params.limit}`;
   }
   const response = await fetch(url);
   if (!response.ok) {
