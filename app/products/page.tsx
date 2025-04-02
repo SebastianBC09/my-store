@@ -1,32 +1,87 @@
 'use client';
 
+import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import { CategoryFilter } from '@/components/UI/CategoryFilter';
 import { ErrorState } from '@/components/UI/ErrorState';
 import { LoadingState } from '@/components/UI/LoadingState';
+import { Pagination } from '@/components/UI/Pagination';
 import ProductsGrid from '@/components/products/ProductsGrid';
 import ProductCard from '@/components/products/ProductCard';
-import { fetchProducts } from '@/lib/api';
+import {
+  fetchCategories,
+  fetchProducts,
+  fetchProductsByCategory,
+} from '@/lib/api';
 import { Product } from '@/types/Product';
+import { ProductCategories, ProductCategory } from '@/types/Categories';
+
+const ITEMS_PER_PAGE = 7;
 
 export default function Page() {
-  const { data, isLoading, error } = useQuery<Product[]>({
-    queryKey: ['products'],
-    queryFn: fetchProducts,
+  const [currentPage, setCurrentPage] = useState(1);
+  const [selectedCategory, setSelectedCategory] = useState<
+    'all' | ProductCategory
+  >('all');
+
+  const {
+    data: categoriesData,
+    isLoading: isLoadingCategories,
+    isError: isErrorCategories,
+  } = useQuery<ProductCategories>({
+    queryKey: ['categories'],
+    queryFn: fetchCategories,
   });
 
-  if (isLoading) {
-    return <LoadingState message="Loading products..." />;
-  }
+  const categories =
+    !isLoadingCategories && !isErrorCategories && categoriesData
+      ? (['all', ...categoriesData] as (string | ProductCategory)[])
+      : ['all'];
 
-  if (error || !data) {
+  const {
+    data: productsData,
+    isLoading: isLoadingProducts,
+    isError: isErrorProducts,
+    refetch,
+  } = useQuery<Product[]>({
+    queryKey: ['products', selectedCategory],
+    queryFn: () =>
+      selectedCategory === 'all'
+        ? fetchProducts()
+        : fetchProductsByCategory(selectedCategory, {}),
+  });
+
+  if (isLoadingProducts || isLoadingCategories) {
     return (
-      <ErrorState
-        title="Failed to load products"
-        message="We couldn't load the products. Please try again later."
-        onRetry={() => refetch()}
-      />
+      <div className="w-full">
+        <LoadingState
+          message="Loading products..."
+          variant="default"
+          size="md"
+        />
+      </div>
     );
   }
+
+  if (isErrorProducts || !productsData) {
+    return (
+      <div className="w-full">
+        <ErrorState
+          title="Error loading products"
+          message="We could not load the products at this time. Please try again later."
+          onRetry={() => refetch()}
+          variant="default"
+        />
+      </div>
+    );
+  }
+
+  const totalPages = Math.ceil(productsData.length / ITEMS_PER_PAGE);
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const currentProducts = productsData.slice(
+    startIndex,
+    startIndex + ITEMS_PER_PAGE
+  );
 
   return (
     <div className="w-full">
@@ -36,64 +91,30 @@ export default function Page() {
             Todos los productos
           </h2>
           <p className="text-sm text-[var(--color-text-secondary)]">
-            {data.length} producto{data.length !== 1 ? 's' : ''} disponible
-            {data.length !== 1 ? 's' : ''}
+            {productsData.length} producto
+            {productsData.length !== 1 ? 's' : ''} disponible
           </p>
         </div>
-        <div className="flex items-center gap-2">
-          <select
-            className="rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-700 shadow-sm focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:outline-none dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200"
-            defaultValue="all"
-          >
-            <option value="all">Todas las categorías</option>
-            <option value="electronics">Electrónica</option>
-            <option value="clothing">Ropa</option>
-            <option value="home">Hogar</option>
-          </select>
-        </div>
+        <CategoryFilter
+          categories={categories}
+          selectedCategory={selectedCategory}
+          onCategoryChange={(cat) => {
+            setSelectedCategory(cat as 'all' | ProductCategory);
+            setCurrentPage(1);
+          }}
+        />
       </div>
       <ProductsGrid>
-        {data.map((product: Product) => (
+        {currentProducts.map((product: Product) => (
           <ProductCard key={product.id} product={product} />
         ))}
       </ProductsGrid>
       <div className="mt-8 flex justify-center">
-        <nav className="flex items-center space-x-1">
-          <button className="rounded-md px-2 py-1 text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800">
-            <span className="sr-only">Previous</span>
-            <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
-              <path
-                fillRule="evenodd"
-                d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                clipRule="evenodd"
-              />
-            </svg>
-          </button>
-          <button className="rounded-md bg-indigo-600 px-3 py-1 text-sm font-medium text-white">
-            1
-          </button>
-          <button className="rounded-md px-3 py-1 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800">
-            2
-          </button>
-          <button className="rounded-md px-3 py-1 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800">
-            3
-          </button>
-          <span className="px-2 text-gray-500 dark:text-gray-400">...</span>
-
-          <button className="rounded-md px-3 py-1 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800">
-            8
-          </button>
-          <button className="rounded-md px-2 py-1 text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800">
-            <span className="sr-only">Next</span>
-            <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
-              <path
-                fillRule="evenodd"
-                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                clipRule="evenodd"
-              />
-            </svg>
-          </button>
-        </nav>
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={(page) => setCurrentPage(page)}
+        />
       </div>
     </div>
   );
