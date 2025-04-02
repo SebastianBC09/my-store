@@ -28,9 +28,9 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
     <div className="group relative overflow-hidden rounded-lg border border-[var(--color-card-border)] bg-[var(--color-card-bg)] p-4 transition-all duration-300 ease-in-out hover:-translate-y-1 hover:shadow-xl">
       <div
         className="absolute top-2 right-2 z-10 rounded-full bg-[var(--color-product-rating)] px-2 py-1 text-xs font-medium opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-        aria-label={`Rating: ${rating.rate.toFixed(1)}`}
+        aria-label={`Rating: ${rating?.rate.toFixed(1)}`}
       >
-        ★ {rating.rate.toFixed(1)}
+        ★ {rating?.rate.toFixed(1)}
       </div>
       <div className="relative mb-3 flex h-48 items-center justify-center overflow-hidden rounded bg-[var(--color-card-bg)] p-4 transition-transform duration-300 group-hover:scale-105">
         {isLoading && (
@@ -54,7 +54,7 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
         </div>
       </div>
       <div className="mb-2">
-        <span className="inline-block rounded-full bg-[var(--color-gray-200)] px-2 py-1 text-xs font-medium text-[var(--color-text-primary)] capitalize dark:bg-[var(--color-primary-dark)] dark:text-[var(--color-text-on-primary)]">
+        <span className="inline-block rounded-full bg-[var(--color-badge-bg)] px-2 py-1 text-xs font-medium text-[var(--color-badge-text)] capitalize">
           {category}
         </span>
       </div>
@@ -72,7 +72,7 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
           </p>
           <div className="flex items-center text-xs text-[var(--color-text-secondary)]">
             <span className="mr-1 text-[var(--color-product-rating)]">★</span>
-            <span>{rating.count} reviews</span>
+            <span>{rating?.count} reviews</span>
           </div>
         </div>
 
