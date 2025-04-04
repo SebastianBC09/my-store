@@ -71,7 +71,7 @@ const ShoppingCart: FC<CartProps> = ({
             Your cart is empty
           </h2>
           <p className="mt-1 text-sm text-[var(--color-text-secondary)]">
-            It looks like you haven't added any products to your cart yet.
+            It looks like you haven&#39;t added any products to your cart yet.
           </p>
           <div className="mt-4">
             <Link
@@ -92,8 +92,7 @@ const ShoppingCart: FC<CartProps> = ({
       <div className="mb-4">
         <div className="mb-2 flex items-center justify-between">
           <div className="text-sm font-medium text-[var(--color-text-secondary)]">
-            Products ({items.reduce((count, item) => count + item.quantity, 0)}
-            )
+            Products ({items.reduce((count, item) => count + item.quantity, 0)})
           </div>
           {items.length > 0 && (
             <button
