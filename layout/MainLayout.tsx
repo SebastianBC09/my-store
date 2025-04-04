@@ -43,7 +43,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
   return (
     <div className="flex min-h-screen flex-col transition-colors duration-300">
       <Header onOpenCart={handleOpenCart} cartItemsCount={cartItemsCount} />
-      <main className="container mx-auto flex-grow px-4 pt-24 pb-8 sm:px-6 lg:px-8">
+      <main className="flex-grow bg-[var(--color-bg-surface)] px-4 pt-24 pb-8 sm:px-6 lg:px-8">
         {children}
       </main>
       <Footer />
