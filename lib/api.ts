@@ -15,7 +15,9 @@ export const fetchProducts = async (params?: {
   return (await response.json()) as Promise<Product[]>;
 };
 
-export const fetchProductsById = async (id: string): Promise<Product> => {
+export const fetchProductsById = async (
+  id: string | number
+): Promise<Product> => {
   const response = await fetch(`https://fakestoreapi.com/products/${id}`);
   if (!response.ok) {
     throw new Error(`Error fetching product with id ${id}`);
