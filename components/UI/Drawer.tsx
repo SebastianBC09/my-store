@@ -43,7 +43,7 @@ const Drawer: FC<DrawerProps> = ({
   }
 
   return (
-    <div className="z-drawer fixed inset-0 flex" style={{ zIndex: 100 }}>
+    <div className="fixed inset-0 flex" style={{ zIndex: 200 }}>
       <div
         className={`fixed inset-0 bg-black transition-opacity duration-300 ${
           animationState === 'open' ? 'opacity-50' : 'opacity-0'
@@ -52,17 +52,17 @@ const Drawer: FC<DrawerProps> = ({
       />
 
       <div
-        className={`fixed right-0 h-full w-full max-w-xs overflow-auto bg-[var(--color-bg-primary)] text-[var(--color-text-primary)] shadow-xl transition-transform duration-300 ease-in-out sm:max-w-sm md:max-w-md ${
+        className={`fixed right-0 h-full w-full max-w-sm overflow-auto bg-[var(--color-bg-primary)] text-[var(--color-text-primary)] shadow-xl transition-transform duration-300 ease-in-out md:max-w-md lg:max-w-lg ${
           animationState === 'open' || animationState === 'opening'
             ? 'translate-x-0'
             : 'translate-x-full'
         }`}
       >
-        <div className="border-border-primary sticky top-0 z-10 flex items-center justify-between border-b bg-[var(--color-header-bg)] p-4">
+        <div className="sticky top-0 z-10 flex items-center justify-between border-b border-[var(--color-border-primary)] bg-[var(--color-header-bg)] p-4">
           <h2 className="text-xl font-semibold">{title}</h2>
           <button
             onClick={onClose}
-            className="hover:bg-opacity-10 hover:bg-button-tertiary-bg rounded-full p-2 transition-colors"
+            className="hover:bg-opacity-10 rounded-full p-2 transition-colors hover:bg-[var(--color-button-tertiary-bg)]"
             aria-label="Close menu"
           >
             <svg
@@ -82,15 +82,14 @@ const Drawer: FC<DrawerProps> = ({
           </button>
         </div>
 
-        {/* Content */}
         <div className="overflow-y-auto p-4">{children}</div>
-        {/* Footer */}
-        <div className="border-border-primary absolute right-0 bottom-0 left-0 border-t p-4">
+
+        <div className="absolute right-0 bottom-0 left-0 border-t border-[var(--color-border-primary)] p-4">
           <div className="flex flex-col space-y-4">
-            <button className="text-button-primary-text w-full rounded-lg bg-[var(--color-button-primary-bg)] px-4 py-3 transition-colors hover:bg-[var(--color-button-primary-hover)]">
+            <button className="w-full rounded-lg bg-[var(--color-button-primary-bg)] px-4 py-3 text-[var(--color-button-primary-text)] transition-colors hover:bg-[var(--color-button-primary-hover)]">
               Sign In
             </button>
-            <button className="border-button-secondary-border bg-button-secondary-bg text-button-secondary-text hover:bg-button-secondary-hover w-full rounded-lg border px-4 py-3 transition-colors">
+            <button className="w-full rounded-lg border border-[var(--color-button-secondary-border)] bg-[var(--color-button-secondary-bg)] px-4 py-3 text-[var(--color-button-secondary-text)] transition-colors hover:bg-[var(--color-button-secondary-hover)]">
               Create Account
             </button>
           </div>

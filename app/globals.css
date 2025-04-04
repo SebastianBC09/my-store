@@ -9,7 +9,6 @@
   --color-primary: #6366f1; /* Main brand color - indigo-500 */
   --color-primary-dark: #4f46e5; /* Darker shade - indigo-600 */
   --color-primary-light: #818cf8; /* Lighter shade - indigo-400 */
-
   --color-accent: #eab308; /* Yellow accent color */
 
   /* Neutral Colors */
@@ -33,14 +32,33 @@
   /* Semantic Colors */
   --color-success: #10b981; /* Emerald-500 */
   --color-warning: #f59e0b; /* Amber-500 */
-  --color-error: #ef4444; /* Red-500 */
-  --color-info: #3b82f6; /* Blue-500 */
+  --color-error: #ef4444;   /* Red-500 */
+  --color-info:  #3b82f6;   /* Blue-500 */
+
+  /* Derived Status Colors - Light Mode */
+  --color-status-success-bg: #d1fae5; /* Emerald-100 */
+  --color-status-success-text: #059669; /* Emerald-600 */
+  --color-status-warning-bg: #fef3c7; /* Amber-100 */
+  --color-status-warning-text: #d97706; /* Amber-600 */
+  --color-status-error-bg: #fee2e2;   /* Red-100 */
+  --color-status-error-text: #dc2626;   /* Red-600 */
+  --color-status-info-bg:  #dbeafe;     /* Blue-100 */
+  --color-status-info-text:  #2563eb;    /* Blue-600 */
+
+  /* Derived Status Colors - Dark Mode */
+  --color-status-success-bg-dark: rgba(16, 185, 129, 0.2);
+  --color-status-success-text-dark: #34d399; /* Emerald-400 */
+  --color-status-warning-bg-dark: rgba(245, 158, 11, 0.2);
+  --color-status-warning-text-dark: #fbbf24; /* Amber-400 */
+  --color-status-error-bg-dark: rgba(239, 68, 68, 0.2);
+  --color-status-error-text-dark: #f87171; /* Red-400 */
+  --color-status-info-bg-dark: rgba(59, 130, 246, 0.2);
+  --color-status-info-text-dark: #60a5fa; /* Blue-400 */
 }
 
 @layer base {
   /*
    * Light Mode - Global Semantic Variables
-   * These variables map our color palette to functional uses
    */
   :root {
     /* Background Colors */
@@ -49,7 +67,6 @@
     --color-bg-surface: var(--color-gray-20);
     --color-bg-tertiary: var(--color-gray-50);
     --color-bg-accent: var(--color-primary-light);
-
 
     /* Text Colors */
     --color-text-primary: var(--color-gray-900);
@@ -69,12 +86,10 @@
     --color-button-primary-bg: var(--color-primary);
     --color-button-primary-hover: var(--color-primary-dark);
     --color-button-primary-text: var(--color-white);
-
     --color-button-secondary-bg: var(--color-white);
     --color-button-secondary-hover: var(--color-gray-100);
     --color-button-secondary-text: var(--color-primary);
     --color-button-secondary-border: var(--color-primary);
-
     --color-button-tertiary-bg: var(--color-gray-200);
     --color-button-tertiary-hover: var(--color-gray-300);
     --color-button-tertiary-text: var(--color-gray-800);
@@ -87,14 +102,14 @@
     --color-input-focus-border: var(--color-primary);
 
     /* Status Colors */
-    --color-status-success-bg: #d1fae5; /* Emerald-100 */
-    --color-status-success-text: #059669; /* Emerald-600 */
-    --color-status-warning-bg: #fef3c7; /* Amber-100 */
-    --color-status-warning-text: #d97706; /* Amber-600 */
-    --color-status-error-bg: #fee2e2; /* Red-100 */
-    --color-status-error-text: #dc2626; /* Red-600 */
-    --color-status-info-bg: #dbeafe; /* Blue-100 */
-    --color-status-info-text: #2563eb; /* Blue-600 */
+    --color-status-success-bg: var(--color-status-success-bg);
+    --color-status-success-text: var(--color-status-success-text);
+    --color-status-warning-bg: var(--color-status-warning-bg);
+    --color-status-warning-text: var(--color-status-warning-text);
+    --color-status-error-bg: var(--color-status-error-bg);
+    --color-status-error-text: var(--color-status-error-text);
+    --color-status-info-bg: var(--color-status-info-bg);
+    --color-status-info-text: var(--color-status-info-text);
 
     /* Card Colors */
     --color-card-bg: var(--color-white);
@@ -146,7 +161,6 @@
     --color-bg-tertiary: var(--color-gray-700);
     --color-bg-accent: var(--color-primary-dark);
 
-
     /* Text Colors */
     --color-text-primary: var(--color-gray-100);
     --color-text-secondary: var(--color-gray-300);
@@ -165,12 +179,10 @@
     --color-button-primary-bg: var(--color-primary);
     --color-button-primary-hover: var(--color-primary-light);
     --color-button-primary-text: var(--color-white);
-
     --color-button-secondary-bg: transparent;
     --color-button-secondary-hover: rgba(255, 255, 255, 0.1);
     --color-button-secondary-text: var(--color-primary-light);
     --color-button-secondary-border: var(--color-primary-light);
-
     --color-button-tertiary-bg: var(--color-gray-700);
     --color-button-tertiary-hover: var(--color-gray-600);
     --color-button-tertiary-text: var(--color-gray-200);
@@ -183,14 +195,14 @@
     --color-input-focus-border: var(--color-primary-light);
 
     /* Status Colors */
-    --color-status-success-bg: rgba(16, 185, 129, 0.2);
-    --color-status-success-text: #34d399; /* Emerald-400 */
-    --color-status-warning-bg: rgba(245, 158, 11, 0.2);
-    --color-status-warning-text: #fbbf24; /* Amber-400 */
-    --color-status-error-bg: rgba(239, 68, 68, 0.2);
-    --color-status-error-text: #f87171; /* Red-400 */
-    --color-status-info-bg: rgba(59, 130, 246, 0.2);
-    --color-status-info-text: #60a5fa; /* Blue-400 */
+    --color-status-success-bg: var(--color-status-success-bg-dark);
+    --color-status-success-text: var(--color-status-success-text-dark);
+    --color-status-warning-bg: var(--color-status-warning-bg-dark);
+    --color-status-warning-text: var(--color-status-warning-text-dark);
+    --color-status-error-bg: var(--color-status-error-bg-dark);
+    --color-status-error-text: var(--color-status-error-text-dark);
+    --color-status-info-bg: var(--color-status-info-bg-dark);
+    --color-status-info-text: var(--color-status-info-text-dark);
 
     /* Card Colors */
     --color-card-bg: var(--color-gray-800);

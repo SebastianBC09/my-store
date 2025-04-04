@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { ChangeEvent, FC } from 'react';
 
 const QuantityControl: FC<{
   quantity: number;
@@ -7,29 +7,45 @@ const QuantityControl: FC<{
   const handleDecrease = () => onChange(quantity - 1);
   const handleIncrease = () => onChange(quantity + 1);
 
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+
+    if (value === '') {
+      onChange(1);
+      return;
+    }
+
+    if (/^\d+$/.test(value)) {
+      onChange(parseInt(value) || 1);
+    }
+  };
+
   return (
     <div className="flex items-center rounded border border-[var(--color-card-border)]">
       <button
         onClick={handleDecrease}
-        className="px-2 py-1 text-[var(--color-text-secondary)] hover:text-[var(--color-primary)]"
+        disabled={quantity <= 1}
+        className="flex h-8 w-8 items-center justify-center text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] disabled:cursor-not-allowed disabled:opacity-50"
         aria-label="Decrease quantity"
       >
-        -
+        <span className="text-lg font-medium">-</span>
       </button>
-      <input
-        type="number"
-        min="1"
-        value={quantity}
-        onChange={(e) => onChange(parseInt(e.target.value) || 1)}
-        className="w-12 border-x border-[var(--color-card-border)] bg-transparent py-1 text-center text-sm focus:outline-none"
-        aria-label="Quantity"
-      />
+      <div className="flex w-10 items-center justify-center border-x border-[var(--color-card-border)]">
+        <input
+          type="text"
+          min="1"
+          value={quantity}
+          onChange={handleInputChange}
+          className="w-full bg-transparent py-1 text-center text-sm focus:outline-none"
+          aria-label="Quantity"
+        />
+      </div>
       <button
         onClick={handleIncrease}
-        className="px-2 py-1 text-[var(--color-text-secondary)] hover:text-[var(--color-primary)]"
+        className="flex h-8 w-8 items-center justify-center text-[var(--color-text-secondary)] hover:text-[var(--color-primary)]"
         aria-label="Increase quantity"
       >
-        +
+        <span className="text-lg font-medium">+</span>
       </button>
     </div>
   );

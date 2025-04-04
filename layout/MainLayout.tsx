@@ -48,7 +48,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
       </main>
       <Footer />
 
-      <Drawer isOpen={isCartOpen} onClose={handleCloseCart} title="Mi carrito">
+      <Drawer isOpen={isCartOpen} onClose={handleCloseCart} title="My Cart">
         <ShoppingCart
           items={cart?.products || []}
           onClearCart={clearCart}
