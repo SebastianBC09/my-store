@@ -1,11 +1,29 @@
-import { ReactNode } from 'react';
+'use client';
+
+import { ReactNode, useEffect } from 'react';
 import MainLayout from '@/layout/MainLayout';
+import { useQueryClient } from '@tanstack/react-query';
+import { fetchCategories } from '@/lib/api';
 
 interface LayoutProps {
   children: ReactNode;
 }
 
 export default function Layout({ children }: LayoutProps) {
+  const queryClient = useQueryClient();
+
+  useEffect(() => {
+    queryClient
+      .prefetchQuery({
+        queryKey: ['categories'],
+        queryFn: fetchCategories,
+        staleTime: Infinity,
+      })
+      .catch((error) => {
+        console.error('Prefetch category error', error);
+      });
+  }, [queryClient]);
+
   return (
     <MainLayout>
       <section className="w-full py-8">
