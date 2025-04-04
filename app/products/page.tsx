@@ -1,7 +1,11 @@
 'use client';
 
-import { useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import { useEffect, useState } from 'react';
+import {
+  keepPreviousData,
+  useQuery,
+  useQueryClient,
+} from '@tanstack/react-query';
 import { CategoryFilter } from '@/components/UI/CategoryFilter';
 import { ErrorState } from '@/components/UI/ErrorState';
 import { LoadingState } from '@/components/UI/LoadingState';
@@ -23,23 +27,34 @@ export default function Page() {
   const [selectedCategory, setSelectedCategory] = useState<
     'all' | ProductCategory
   >('all');
+  const queryClient = useQueryClient();
+
+  const { data: categoriesData, isLoading: isLoadingCategories } =
+    useQuery<ProductCategories>({
+      queryKey: ['categories'],
+      queryFn: fetchCategories,
+      staleTime: Infinity,
+    });
+
+  useEffect(() => {
+    if (categoriesData) {
+      categoriesData.forEach((category) => {
+        queryClient
+          .prefetchQuery({
+            queryKey: ['products', category],
+            queryFn: () => fetchProductsByCategory(category),
+          })
+          .catch((error) => {
+            console.error('Prefetch category error', error);
+          });
+      });
+    }
+  }, [categoriesData, queryClient]);
+
+  const categories = ['all', ...(categoriesData || [])];
 
   const {
-    data: categoriesData,
-    isLoading: isLoadingCategories,
-    isError: isErrorCategories,
-  } = useQuery<ProductCategories>({
-    queryKey: ['categories'],
-    queryFn: fetchCategories,
-  });
-
-  const categories =
-    !isLoadingCategories && !isErrorCategories && categoriesData
-      ? (['all', ...categoriesData] as (string | ProductCategory)[])
-      : ['all'];
-
-  const {
-    data: productsData,
+    data: productsData = [],
     isLoading: isLoadingProducts,
     isError: isErrorProducts,
     refetch,
@@ -48,8 +63,16 @@ export default function Page() {
     queryFn: () =>
       selectedCategory === 'all'
         ? fetchProducts()
-        : fetchProductsByCategory(selectedCategory, {}),
+        : fetchProductsByCategory(selectedCategory),
+    placeholderData: keepPreviousData,
   });
+
+  const totalPages = Math.ceil(productsData.length / ITEMS_PER_PAGE);
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const currentProducts = productsData.slice(
+    startIndex,
+    startIndex + ITEMS_PER_PAGE
+  );
 
   if (isLoadingProducts || isLoadingCategories) {
     return (
@@ -75,13 +98,6 @@ export default function Page() {
       </div>
     );
   }
-
-  const totalPages = Math.ceil(productsData.length / ITEMS_PER_PAGE);
-  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  const currentProducts = productsData.slice(
-    startIndex,
-    startIndex + ITEMS_PER_PAGE
-  );
 
   return (
     <div className="w-full">
