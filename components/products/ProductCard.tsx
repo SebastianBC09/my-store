@@ -4,6 +4,7 @@ import { FC, useState } from 'react';
 import Link from 'next/link';
 import { Product } from '@/types/Product';
 import ProductImage from '@/components/products/ProductImage';
+import { useCart } from '@/context/Cart/CartContext';
 
 interface ProductCardProps {
   product: Product;
@@ -13,6 +14,7 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const { addProduct } = useCart();
 
   const { id, title, price, description, image, rating, category } = product;
 
@@ -181,6 +183,7 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
           <button
             aria-label={`Add ${title} to cart`}
             className="flex items-center justify-center rounded border border-[var(--color-card-border)] bg-[var(--color-card-bg)] px-3 py-2 text-sm font-medium text-[var(--color-text-secondary)] transition-all duration-300 ease-in-out hover:bg-[var(--color-bg-secondary)] hover:text-[var(--color-product-price)] focus:ring-2 focus:ring-[var(--color-primary-light)] focus:ring-offset-2 focus:outline-none sm:px-2"
+            onClick={() => addProduct(id, 1)}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
