@@ -104,11 +104,11 @@ export default function Page() {
       <div className="mb-6 flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
         <div>
           <h2 className="text-xl font-bold text-[var(--color-text-primary)]">
-            Todos los productos
+            All Products
           </h2>
           <p className="text-sm text-[var(--color-text-secondary)]">
-            {productsData.length} producto
-            {productsData.length !== 1 ? 's' : ''} disponible
+            {productsData.length} product
+            {productsData.length !== 1 ? 's' : ''} available
           </p>
         </div>
         <CategoryFilter

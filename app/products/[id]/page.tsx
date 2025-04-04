@@ -56,7 +56,7 @@ export default function Page() {
     return (
       <div className="w-full">
         <LoadingState
-          message="Cargando producto..."
+          message="Loading product..."
           variant="default"
           size="md"
         />
@@ -68,8 +68,8 @@ export default function Page() {
     return (
       <div className="w-full">
         <ErrorState
-          title="Error al cargar el producto"
-          message="No pudimos cargar los detalles del producto. Por favor, inténtalo de nuevo más tarde."
+          title="Error loading product"
+          message="We couldn't load the product details. Please try again later."
           onRetry={() => refetchProduct()}
           variant="default"
         />
@@ -137,7 +137,7 @@ export default function Page() {
 
           <div className="mb-6">
             <h3 className="mb-2 text-lg font-medium text-[var(--color-text-primary)]">
-              Descripción:
+              Description:
             </h3>
             <p className="text-[var(--color-text-secondary)]">
               {productData.description}
@@ -146,7 +146,7 @@ export default function Page() {
 
           <div className="mb-6">
             <h3 className="mb-2 text-lg font-medium text-[var(--color-text-primary)]">
-              Cantidad:
+              Quantity:
             </h3>
             <div className="flex items-center space-x-3">
               <button
@@ -210,7 +210,7 @@ export default function Page() {
                   d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
                 />
               </svg>
-              Añadir al Carrito
+              Add to Cart
             </button>
             <button
               onClick={() => router.back()}
@@ -230,7 +230,7 @@ export default function Page() {
                   d="M10 19l-7-7m0 0l7-7m-7 7h18"
                 />
               </svg>
-              Volver a Productos
+              Back to Products
             </button>
           </div>
         </div>
@@ -238,7 +238,7 @@ export default function Page() {
 
       <div className="mt-12">
         <h2 className="mb-6 text-xl font-bold text-[var(--color-text-primary)]">
-          Productos relacionados
+          Related Products
         </h2>
         {isLoadingRelatedProducts ? (
           <div className="flex justify-center py-8">
@@ -255,7 +255,7 @@ export default function Page() {
           </div>
         ) : (
           <p className="py-4 text-center text-[var(--color-text-secondary)]">
-            No hay productos relacionados disponibles
+            No related products available
           </p>
         )}
       </div>

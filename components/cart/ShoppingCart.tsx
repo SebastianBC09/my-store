@@ -68,17 +68,17 @@ const ShoppingCart: FC<CartProps> = ({
             />
           </svg>
           <h2 className="mt-3 text-base font-medium text-[var(--color-text-primary)]">
-            Tu carrito está vacío
+            Your cart is empty
           </h2>
           <p className="mt-1 text-sm text-[var(--color-text-secondary)]">
-            Parece que no has agregado ningún producto a tu carrito todavía.
+            It looks like you haven't added any products to your cart yet.
           </p>
           <div className="mt-4">
             <Link
               href="/products"
               className="inline-flex items-center rounded-md bg-[var(--color-button-primary-bg)] px-3 py-1.5 text-sm font-medium text-[var(--color-button-primary-text)] shadow-sm transition-all duration-300 hover:bg-[var(--color-button-primary-hover)]"
             >
-              Explorar productos
+              Explore products
             </Link>
           </div>
         </div>
@@ -92,7 +92,7 @@ const ShoppingCart: FC<CartProps> = ({
       <div className="mb-4">
         <div className="mb-2 flex items-center justify-between">
           <div className="text-sm font-medium text-[var(--color-text-secondary)]">
-            Productos ({items.reduce((count, item) => count + item.quantity, 0)}
+            Products ({items.reduce((count, item) => count + item.quantity, 0)}
             )
           </div>
           {items.length > 0 && (
@@ -100,7 +100,7 @@ const ShoppingCart: FC<CartProps> = ({
               onClick={onClearCart}
               className="text-xs text-[var(--color-error)] hover:text-[var(--color-error-dark)]"
             >
-              Vaciar carrito
+              Empty cart
             </button>
           )}
         </div>

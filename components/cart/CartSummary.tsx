@@ -17,7 +17,7 @@ const CartSummary: FC<{
   return (
     <div className="mt-6 rounded-lg border border-[var(--color-card-border)] bg-[var(--color-card-bg)] p-6 shadow-sm">
       <h2 className="text-lg font-medium text-[var(--color-text-primary)]">
-        Resumen del pedido
+        Order Summary
       </h2>
 
       <div className="mt-6 space-y-4">
@@ -30,7 +30,7 @@ const CartSummary: FC<{
 
         <div className="flex items-center justify-between">
           <p className="text-sm text-[var(--color-text-secondary)]">
-            Impuestos (16%)
+            Taxes (16%)
           </p>
           <p className="text-sm font-medium text-[var(--color-text-primary)]">
             ${taxes.toFixed(2)}
@@ -53,7 +53,7 @@ const CartSummary: FC<{
         onClick={onCheckout}
         className="mt-6 w-full rounded-md bg-[var(--color-button-primary-bg)] px-6 py-3 text-center text-sm font-medium text-[var(--color-button-primary-text)] shadow-sm transition-all duration-300 hover:bg-[var(--color-button-primary-hover)] hover:shadow-md focus:ring-2 focus:ring-[var(--color-primary-light)] focus:ring-offset-2 focus:outline-none"
       >
-        Proceder al pago
+        Proceed to Checkout
       </button>
 
       <div className="mt-4 text-center">
@@ -61,7 +61,7 @@ const CartSummary: FC<{
           href="/products"
           className="text-sm text-[var(--color-primary)] hover:text-[var(--color-primary-dark)]"
         >
-          o Continuar comprando
+          or Continue Shopping
         </Link>
       </div>
     </div>

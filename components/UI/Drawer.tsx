@@ -57,11 +57,6 @@ const Drawer: FC<DrawerProps> = ({
             ? 'translate-x-0'
             : 'translate-x-full'
         }`}
-        // className={`fixed right-0 h-full w-full max-w-xs overflow-auto bg-bg-primary text-text-primary shadow-xl transition-transform duration-300 ease-in-out sm:max-w-sm md:max-w-md ${
-        //   animationState === 'open' || animationState === 'opening'
-        //     ? 'translate-x-0'
-        //     : 'translate-x-full'
-        // }`}
       >
         <div className="border-border-primary sticky top-0 z-10 flex items-center justify-between border-b bg-[var(--color-header-bg)] p-4">
           <h2 className="text-xl font-semibold">{title}</h2>
