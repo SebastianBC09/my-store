@@ -1,24 +1,30 @@
-export interface CartProduct {
+import { Product } from './Product';
+
+export interface CartItem {
   productId: number;
   quantity: number;
+}
+
+export interface CartItemWithDetails extends CartItem {
+  product: Product;
 }
 
 export interface Cart {
   id: number;
   userId: number;
   date: string; // ISO date string format
-  products: CartProduct[];
+  products: CartItem[];
 }
 
 export interface AddCartRequest {
   userId: number;
-  products: CartProduct[];
+  products: CartItem[];
 }
 
 export interface UpdateCartRequest {
   userId?: number; // Optional for partial updates
   date?: string; // Optional for partial updates
-  products?: CartProduct[]; // Optional for partial updates
+  products?: CartItem[]; // Optional for partial updates
 }
 
 export type GetUserCartsResponse = Cart[];
