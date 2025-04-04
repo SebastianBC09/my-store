@@ -1,36 +1,99 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# E-commerce Platform
 
-## Getting Started
+Este proyecto es una aplicación de e-commerce desarrollada para demostrar habilidades en Next.js (v15 con App Router), Tailwind CSS y React Query (TanStack Query). La aplicación muestra un catálogo de productos, detalles individuales y un carrito de compras, con un diseño responsivo y soporte para temas oscuros/claro.
 
-First, run the development server:
+## Características
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- **Next.js 15 con App Router:** Organización moderna de rutas y layouts.
+- **Tailwind CSS:** Estilos personalizados, diseño responsivo y soporte para temas oscuros/claro.
+- **React Query:** Manejo avanzado de carga, caché, paginación, prefetching y actualizaciones optimistas.
+- **Estructura modular:** Componentes reutilizables para Header, Footer, Skeleton, ThemeSwitch y más.
+- **Carrito de Compras:** Funcionalidad para agregar, actualizar y eliminar productos, con persistencia en localStorage.
+- **Rendimiento y accesibilidad:** Transiciones suaves, optimización en consultas y compatibilidad con ARIA.
+
+## Instalación y Ejecución
+
+1. **Clona el repositorio:**
+   ```bash
+   git clone https://github.com/tu_usuario/e-commerce.git
+   cd e-commerce
+   ```
+
+2. **Instala las dependencias:**
+   ```bash
+   npm install
+   ```
+
+3. **Ejecuta el servidor de desarrollo:**
+   ```bash
+   npm run dev
+   ```
+
+4. **Construye y ejecuta en producción:**
+   ```bash
+   npm run build
+   npm run start
+   ```
+
+## Estructura del Proyecto
+
+La estructura aprovecha el App Router de Next.js. Ejemplo:
+
+```
+e-commerce/
+├── app/
+│   ├── layout.tsx         // Layout raíz (incluye Providers y MainLayout)
+│   ├── page.tsx           // Página principal (Home)
+│   ├── productos/         // Ruta para el catálogo de productos
+│   │   ├── page.tsx       // Página de catálogo de productos
+│   │   └── [id]/          // Ruta dinámica para detalle del producto
+│   │       └── page.tsx   // Página de detalle del producto
+│   └── carrito/           // Ruta para el carrito de compras
+│       └── page.tsx       // Página del carrito (o componente drawer integrado)
+├── components/            // Componentes reutilizables (Header, Footer, Skeleton, ThemeSwitch, etc.)
+├── hooks/                 // Custom hooks (por ejemplo, para autenticación o manejo del carrito)
+├── lib/                   // Funciones/utilidades compartidas (llamadas a APIs, helpers, etc.)
+├── styles/                // Archivos de estilos globales y configuraciones de Tailwind CSS
+├── public/                // Recursos públicos (imágenes, favicon, etc.)
+├── .eslintrc.json         // Configuración de ESLint
+├── tailwind.config.js     // Configuración de Tailwind CSS
+├── package.json
+└── README.md
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Rutas Clave
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Página principal (`/`):**  
+  Archivo: `app/page.tsx`  
+  Contenido: Bienvenida y enlaces a las secciones principales.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Catálogo de productos (`/productos`):**  
+  Archivo: `app/productos/page.tsx`  
+  Contenido: Cuadrícula de productos, paginación y filtros por categoría. Se consumen datos mediante React Query.
 
-## Learn More
+- **Detalle del producto (`/productos/[id]`):**  
+  Archivo: `app/productos/[id]/page.tsx`  
+  Contenido: Detalle completo del producto, imágenes, descripción, precio y variantes. Se implementa prefetching y se muestran productos relacionados.
 
-To learn more about Next.js, take a look at the following resources:
+- **Carrito de Compras (`/carrito`):**  
+  Archivo: `app/carrito/page.tsx`  
+  Contenido: Lista de productos agregados, resumen de compra y acciones para modificar el carrito. Se utiliza React Query para mutaciones y se persiste en localStorage.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Decisiones Técnicas y Arquitectónicas
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Next.js App Router:** Facilita la organización de rutas y layouts, permitiendo la reutilización de componentes (Header, Footer, etc.).
+- **Tailwind CSS:** Permite crear un diseño consistente, responsivo y personalizable mediante variables CSS para temas.
+- **React Query:** Optimiza la gestión de datos asíncronos, minimizando solicitudes innecesarias y mejorando la experiencia del usuario con estados de carga y error.
+- **Persistencia en localStorage:** Mantiene el estado del carrito de compras entre sesiones.
 
-## Deploy on Vercel
+## Despliegue
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. **Repositorio GitHub:**  
+   Sube el código a un repositorio para control de versiones.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+2. **Despliegue:**  
+   Despliega la aplicación en Vercel u otra plataforma similar para hacerla accesible online.
+
+## Contribuciones
+
+Cualquier mejora o sugerencia es bienvenida. Siéntete libre de abrir issues o enviar pull requests.
