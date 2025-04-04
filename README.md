@@ -127,7 +127,7 @@ e-commerce/
 
 ## 📄 Licencia
 
-Este proyecto está licenciado bajo la Licencia MIT - vea el archivo [LICENSE](LICENSE) para más detalles.
+Este proyecto está licenciado bajo la Licencia MIT - vea el archivo [LICENSE]() para más detalles.
 
 ---
 
