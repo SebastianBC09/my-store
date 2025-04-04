@@ -1,7 +1,13 @@
 import { FC, useState, useEffect } from 'react';
-import ThemeSwitch from '@/components/ThemeSwitch';
+import Link from 'next/link';
+import ThemeSwitch from '@/components/UI/ThemeSwitch';
 
-const Header: FC = () => {
+interface HeaderProps {
+  onOpenCart: () => void;
+  cartItemsCount: number;
+}
+
+const Header: FC<HeaderProps> = ({ onOpenCart, cartItemsCount }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -11,6 +17,11 @@ const Header: FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const navigationItems = [
+    { name: 'Home', path: '/' },
+    { name: 'Products', path: '/products' },
+  ];
+
   return (
     <header
       className={`fixed top-0 z-50 w-full transition-all duration-300 ease-in-out ${
@@ -19,7 +30,7 @@ const Header: FC = () => {
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
-          <div className="group flex items-center space-x-2">
+          <Link href="/" className="group flex items-center space-x-2">
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[var(--color-logo-bg)] transition-colors duration-300 group-hover:bg-[var(--color-logo-hover)]">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -39,21 +50,24 @@ const Header: FC = () => {
             <h1 className="transform text-xl font-bold transition-transform duration-300 group-hover:translate-x-1">
               MyStore
             </h1>
-          </div>
+          </Link>
+
           <nav className="hidden items-center space-x-8 md:flex">
-            {['Home', 'Products', 'Categories', 'Sale'].map((item) => (
-              <a
-                key={item}
-                href={`${item.toLowerCase()}`}
+            {navigationItems.map((item) => (
+              <Link
+                key={item.name}
+                href={item.path}
                 className="border-b-2 font-medium text-[var(--color-nav-text)] transition-all duration-300 ease-in-out hover:border-[var(--color-nav-border-hover)] hover:text-[var(--color-nav-text-hover)]"
               >
-                {item}
-              </a>
+                {item.name}
+              </Link>
             ))}
           </nav>
+
           <div className="flex items-center space-x-4">
             <ThemeSwitch />
             <button
+              onClick={onOpenCart}
               className="relative rounded-full bg-[var(--color-button-bg)] p-2 text-[var(--color-text)] transition-colors duration-300 hover:bg-[var(--color-button-hover)]"
               aria-label="View cart"
             >
@@ -71,9 +85,11 @@ const Header: FC = () => {
                   d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
                 />
               </svg>
-              <span className="absolute -top-1 -right-1 flex h-5 w-5 animate-pulse items-center justify-center rounded-full bg-indigo-600 text-xs font-bold text-white">
-                2
-              </span>
+              {cartItemsCount > 0 && (
+                <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-indigo-600 text-xs font-bold text-white">
+                  {cartItemsCount}
+                </span>
+              )}
             </button>
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -106,20 +122,22 @@ const Header: FC = () => {
             </button>
           </div>
         </div>
+
         <div
           className={`overflow-hidden transition-all duration-300 ease-in-out md:hidden ${
             isMenuOpen ? 'mt-4 max-h-60 opacity-100' : 'max-h-0 opacity-0'
           }`}
         >
           <div className="space-y-1 border-[var(--color-mobile-menu-border)] py-2">
-            {['Home', 'Products', 'Categories', 'Sale'].map((item) => (
-              <a
-                key={item}
-                href={`#${item.toLowerCase()}`}
+            {navigationItems.map((item) => (
+              <Link
+                key={item.name}
+                href={item.path}
                 className="block rounded-lg px-4 py-2 font-medium text-[var(--color-mobile-menu-item)] transition-colors duration-300 hover:bg-[var(--color-mobile-menu-item-hover-bg)] hover:text-[var(--color-mobile-menu-item-hover-text)]"
+                onClick={() => setIsMenuOpen(false)}
               >
-                {item}
-              </a>
+                {item.name}
+              </Link>
             ))}
           </div>
         </div>
